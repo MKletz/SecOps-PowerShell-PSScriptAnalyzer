@@ -1,0 +1,12 @@
+# action metadata: https://docs.github.com/en/free-pro-team@latest/actions/creating-actions/metadata-syntax-for-github-actions
+name: 'PrivSec PSScriptAnalyzer'
+description: 'Centralized linting rules for PowerShell.'
+inputs:
+  path:
+    description: 'Path to run linting rules on.'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.path }}
