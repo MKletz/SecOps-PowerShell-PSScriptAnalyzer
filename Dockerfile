@@ -4,7 +4,7 @@
 FROM mcr.microsoft.com/powershell:latest as base
 
 #Symlink to the version of PowerShell we're targeting
-RUN ln -s /opt/microsoft/powershell/7/pwsh /bin/pwsh
+#RUN ln -s /opt/microsoft/powershell/7/pwsh /bin/pwsh
 
 #Create custom rules dir
 RUN mkdir /custom_rules
