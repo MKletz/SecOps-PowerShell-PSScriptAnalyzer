@@ -14,7 +14,10 @@ RUN pwsh -command "Install-Module -Name 'PSScriptAnalyzer' -Scope 'AllUsers' -Fo
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY run_psscriptanalyzer.ps1 /run_psscriptanalyzer.ps1
+RUN chmod +x /run_psscriptanalyzer.ps1
+
 COPY custom_rules/* /custom_rules/
+RUN chmod +x /custom_rules/*.psm1
 
 # Code file to execute when the docker container starts up (`run_psscriptanalyzer.ps1`)
 ENTRYPOINT ["/run_psscriptanalyzer.ps1"]
