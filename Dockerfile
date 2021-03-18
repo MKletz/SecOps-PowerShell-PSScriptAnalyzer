@@ -3,12 +3,6 @@
 # Container image that runs your code
 FROM mcr.microsoft.com/powershell:latest as base
 
-#Symlink to the version of PowerShell we're targeting
-#RUN ln -s /opt/microsoft/powershell/7/pwsh /bin/pwsh
-
-#Create custom rules dir
-RUN mkdir /custom_rules
-
 #Install PSScriptAnalyzer from PSGallery
 RUN pwsh -command "Install-Module -Name 'PSScriptAnalyzer' -Scope 'AllUsers' -Force"
 
@@ -16,8 +10,9 @@ RUN pwsh -command "Install-Module -Name 'PSScriptAnalyzer' -Scope 'AllUsers' -Fo
 COPY run_psscriptanalyzer.ps1 /run_psscriptanalyzer.ps1
 RUN chmod +x /run_psscriptanalyzer.ps1
 
+RUN mkdir /custom_rules
 COPY custom_rules/* /custom_rules/
-# RUN chmod +x /custom_rules/*.psm1
+RUN chmod +x /custom_rules/*.psm1
 
 # Code file to execute when the docker container starts up (`run_psscriptanalyzer.ps1`)
 ENTRYPOINT ["/run_psscriptanalyzer.ps1"]
